@@ -1,0 +1,43 @@
+<html>
+	<head> 
+		<title>Gravity Map</title>
+		<style type="text/css">
+			html, body, #basicMap {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+			}
+		</style>
+		<script src="http://openlayers.org/api/OpenLayers.js"></script>
+		<script>
+			function init() {
+				var options = {
+					controls: [
+						new OpenLayers.Control.Navigation(),
+						new OpenLayers.Control.PanZoomBar(),
+						new OpenLayers.Control.Permalink(),
+						new OpenLayers.Control.ScaleLine(),
+						new OpenLayers.Control.MousePosition(),
+						new OpenLayers.Control.KeyboardDefaults()
+					]
+				};
+				map = new OpenLayers.Map("basicMap", options);
+
+				var layer = null;
+
+				layer = new OpenLayers.Layer.OSM("World Map", "", {}, { isBaseLayer: true });
+				map.addLayer(layer);
+
+				map.zoomIn();
+
+				layer = new OpenLayers.Layer.OSM("Gravity Map",
+					"http://gravmap.atolm.net/tiles/${z}/${x}/${y}.png",
+					{ opacity: 0.25, isBaseLayer: false });
+				map.addLayer(layer);
+			}
+		</script>
+	</head>
+	<body onload="init();">
+		<div id="basicMap"></div>
+	</body>
+</html>
