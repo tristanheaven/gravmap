@@ -145,18 +145,27 @@ int colour(struct rgb img_data[256][256], int x, int y, int z, double jdate){
 
             anom = anomcalc(surface_cart, Moon, Sun);
 
-            heat = (anom + 1.65e-6)/(3.3e-6);
+            heat = (anom + 1.8e-6)/(3.6e-6);
 
             if(heat < 0.5){
-                img_data[row][col].b = -512 * heat + 256;
-                img_data[row][col].g = 512 * heat;
+                double Db, Dg;
+                Db = (-512.0 * heat + 256.0);
+                Dg = 512.0 * heat;
+
+                img_data[row][col].b = (Db<0)?0:(Db>255)?255:(uint8_t)(Db);
+                img_data[row][col].g = (Dg<0)?0:(Dg>255)?255:(uint8_t)(Dg);
                 img_data[row][col].r = 0;
             }
             else{
+                double Dg, Dr;
+                Dg = (-512.0 * heat + 512.0);
+                Dr = (512.0 * heat - 256.0);
+
                 img_data[row][col].b = 0;
-                img_data[row][col].g = -512 * heat + 512;
-                img_data[row][col].r = 512 * heat - 256;
+                img_data[row][col].g = (Dg<0)?0:(Dg>255)?255:(uint8_t)(Dg);
+                img_data[row][col].r = (Dr<0)?0:(Dr>255)?255:(uint8_t)(Dr);
             }
+
         }
     }
 
