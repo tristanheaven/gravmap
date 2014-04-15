@@ -11,8 +11,23 @@
 #define IMG_W 256
 #define IMG_H 256
 
+static double unixtojd(const int t)
+{
+	return (t / 86400.0 ) + 2440587.5;
+}
+
 int main(int argc, char *argv[])
 {
+	if (argc != 5) {
+		printf("usage: gravmap z x y t\n");
+		return EXIT_FAILURE;
+	}
+
+	const int z = atoi(argv[1]);
+	const int x = atoi(argv[2]);
+	const int y = atoi(argv[3]);
+	const int t = atoi(argv[4]);
+
 	png_image img;
 	memset(&img, '\0', sizeof(png_image));
 
@@ -24,25 +39,12 @@ int main(int argc, char *argv[])
 	img.opaque = NULL;
 	img.colormap_entries = 256;
 
-    double jdate = 256;
-    struct rgb img_data[IMG_W][IMG_H];
-    memset(&img_data, '\0', sizeof(struct rgb));
+	struct rgb img_data[IMG_W][IMG_H];
+	memset(&img_data, '\0', sizeof(struct rgb));
 
-    if (argc < 4) {
-		printf("usage: grav z x y\n");
-		return EXIT_FAILURE;
-    }
-
-    int z = atoi(argv[1]);
-    int x = atoi(argv[2]);
-    int y = atoi(argv[3]);
-
-    colour(img_data, x, y, z, jdate);
-
- //   printf("z: %d, x: %d, y: %d\n", z, x, y);
+	colour(img_data, x, y, z, unixtojd(t));
 
 	png_image_write_to_stdio(&img, stdout, 0, &img_data, 0, NULL);
-
 	png_image_free(&img);
 
 	return EXIT_SUCCESS;
