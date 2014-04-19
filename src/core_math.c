@@ -68,11 +68,9 @@ double sign(double x){
 
 double anomcalc(double surface_cart[3], double Moon[3], double Sun[3]){
     double anom_m, anom_m1, anom_m2, anom_s, anom_s1, anom_s2, anom_net, Moon_dist[3], Sun_dist[3];
-    double m_sep, s_sep, surface_polar[2];
+    double  surface_polar[2];
     int row;
 
-    surface_polar[0] = atan(surface_cart[1]/surface_cart[0]);
-    surface_polar[1] = acos(surface_cart[2]/Earth_rad);
 
 
     for(row = 0; row < 3; row = row +1){
@@ -138,8 +136,9 @@ int colour(struct rgb img_data[256][256], int x, int y, int z, double jdate){
             rowd = row;
             cold = col;
 
-            surface_polar[1] = 0.017453 * (((x + cold/256) / n) * 360.0 - 180.0);
-            surface_polar[0] = atan(sinh(M_PI * (1 - 2 * (y + rowd/256) / n)));
+            // Testing swap to fix projection error
+            surface_polar[0] = 0.017453 * (((x + cold/256) / n) * 360.0 - 180.0);
+            surface_polar[1] = atan(sinh(M_PI * (1 - 2 * (y + rowd/256) / n)));
 
             polar_to_cart(surface_polar, surface_cart);
 
@@ -147,31 +146,58 @@ int colour(struct rgb img_data[256][256], int x, int y, int z, double jdate){
 
             heat = (anom + 1.8e-6)/(3.6e-6);
 
-            if(heat < 0.5){
-                double Db, Dg;
-                Db = (-512.0 * heat + 256.0);
-                Dg = 512.0 * heat;
-
-                img_data[row][col].b = (Db<0)?0:(Db>255)?255:(uint8_t)(Db);
-                img_data[row][col].g = (Dg<0)?0:(Dg>255)?255:(uint8_t)(Dg);
-                img_data[row][col].r = 0;
+            if(heat < 0){
+                heat = 0;
             }
-            else{
-                double Dg, Dr;
-                Dg = (-512.0 * heat + 512.0);
-                Dr = (512.0 * heat - 256.0);
-
-                img_data[row][col].b = 0;
-                img_data[row][col].g = (Dg<0)?0:(Dg>255)?255:(uint8_t)(Dg);
-                img_data[row][col].r = (Dr<0)?0:(Dr>255)?255:(uint8_t)(Dr);
+            if(heat > 1){
+                heat = 1;
             }
 
+            hue_assign(img_data, heat, row, col);
         }
     }
 
     return 0;
-
 }
+
+
+double gregorian_calendar_to_jd(int h, int d, int m, int y){
+    double jdate, dd, hd, dadj;
+    y+=8000;
+    if(m<3) { y--; m+=12; }
+    hd = h;
+    return (y*365) +(y/4) -(y/100) +(y/400) -1200820 +(m*153+3)/5-92 +d-1 + (hd-12)/24;
+}
+
+
+int hue_assign(struct rgb img_data[256][256], double heat, int row, int col){
+    if(heat <= 0.2){
+        img_data[row][col].r = 250;
+        img_data[row][col].g = 1225 * heat + 5;
+        img_data[row][col].b = 5;
+    }
+    if((heat > 0.2)&&(heat <= 0.4)){
+        img_data[row][col].r = -1225 * heat + 495;
+        img_data[row][col].g = 250;
+        img_data[row][col].b = 5;
+    }
+    if((heat > 0.4)&&(heat <= 0.6)){
+        img_data[row][col].r = 5;
+        img_data[row][col].g = 250;
+        img_data[row][col].b = 1225 * heat - 485;
+    }
+    if((heat > 0.6)&&(heat <= 0.8)){
+        img_data[row][col].r = 5;
+        img_data[row][col].g = -1225 * heat + 985;
+        img_data[row][col].b = 250;
+    }
+    if((heat > 0.8)&&(heat <= 1)){
+        img_data[row][col].r = 1225 * heat -975;
+        img_data[row][col].g = 5;
+        img_data[row][col].b = 250;
+    }
+}
+
 
 
 /*
