@@ -3,7 +3,7 @@
 #include "astro_math.h"
 
 
-int Moon_pos(double Moon[3], double jdate){
+void Moon_pos(double Moon[3], double jdate){
 
     double gm, gm2, gm3, fm, fm2, rasc, decl, atr, djd, t;
     double em, em2, em4, gs, lv, lm, ls, rm, l, plon, plat, rmm, a, b, obliq, r;
@@ -88,10 +88,9 @@ int Moon_pos(double Moon[3], double jdate){
     Moon[0] = 1000 * rmm * cos(rasc) * cos(decl);
     Moon[1] = 1000 * rmm * sin(rasc) * cos(decl);
     Moon[2] = 1000 * rmm * sin(decl);
-    return 0;
 }
 
-int Sun_pos(double Sun[3], double jdate){
+void Sun_pos(double Sun[3], double jdate){
 
     double rasc, decl, atr, djd, t, gs, lm, ls, g2, g4, g5, rm, plon, a, b;
     double obliq, rsm;
@@ -131,6 +130,4 @@ int Sun_pos(double Sun[3], double jdate){
     Sun[0] = 1000 * rsm * cos(rasc) * cos(decl);
     Sun[1] = 1000 * rsm * sin(rasc) * cos(decl);
     Sun[2] = 1000 * rsm * sin(decl);
-
-    return 0;
 }

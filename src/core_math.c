@@ -10,13 +10,11 @@
 #define Sun_mass (1.99e30)
 #define Earth_rad (6371000.0)
 
-int ectoeq(double cord[3], double obliq){
+void ectoeq(double cord[3], double obliq){
 
     cord[0] = cord[0];
     cord[1] = cord[1]*cos(obliq) - cord[2]*sin(obliq);
     cord[2] = cord[1]*sin(obliq) + cord[2]*cos(obliq);
-
-    return 0;
 }
 
 
@@ -108,15 +106,13 @@ double modu(double vec[3]){
 
 
 
-int polar_to_cart(double surface_polar[2], double surface_cart[3]){
+void polar_to_cart(double surface_polar[2], double surface_cart[3]){
     surface_cart[0] = Earth_rad * sin(surface_polar[0]) * cos(surface_polar[1]);
     surface_cart[1] = Earth_rad * sin(surface_polar[0]) * sin(surface_polar[1]);
     surface_cart[2] = Earth_rad * cos(surface_polar[0]);
-
-    return 0;
 }
 
-int colour(struct rgb img_data[256][256], int x, int y, int z, double jdate){
+void colour(struct rgb img_data[256][256], int x, int y, int z, double jdate){
     double heat, anom, surface_cart[3], Moon[3];
     double Sun[3], surface_polar[2], obliq, rowd, cold;
     int row, col, n;
@@ -156,8 +152,6 @@ int colour(struct rgb img_data[256][256], int x, int y, int z, double jdate){
             hue_assign(img_data, heat, row, col);
         }
     }
-
-    return 0;
 }
 
 
@@ -170,7 +164,7 @@ double gregorian_calendar_to_jd(int h, int d, int m, int y){
 }
 
 
-int hue_assign(struct rgb img_data[256][256], double heat, int row, int col){
+void hue_assign(struct rgb img_data[256][256], double heat, int row, int col){
     if(heat <= 0.2){
         img_data[row][col].r = 250;
         img_data[row][col].g = 1225 * heat + 5;
