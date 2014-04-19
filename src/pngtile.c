@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 	const int t = atoi(argv[4]);
 
 	png_image img;
-	memset(&img, '\0', sizeof(png_image));
+	memset(&img, '\0', sizeof(img));
 
 	img.version = PNG_IMAGE_VERSION;
 	img.width = IMG_W;
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 	img.colormap_entries = 256;
 
 	struct rgb img_data[IMG_W][IMG_H];
-	memset(&img_data, '\0', sizeof(struct rgb));
+	memset(&img_data, '\0', sizeof(img_data));
 
 	colour(img_data, x, y, z, unixtojd(t));
 
