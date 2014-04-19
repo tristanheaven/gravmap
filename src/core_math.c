@@ -29,6 +29,7 @@ double atan3(double a, double b){
 
     double epsilon, pidiv2, c, y;
     epsilon = 0.0000000001;
+    c = 0;
 
     pidiv2 = 0.5 * M_PI;
 
