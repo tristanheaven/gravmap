@@ -144,7 +144,7 @@ void colour(struct rgb img_data[256][256], int x, int y, int z, double jdate){
 
             anom = anomcalc(surface_cart, Moon, Sun);
 
-            heat = (anom + 1.87e-6)/(3.74e-6);
+            heat = (anom)/(1.87e-6);
 
             if(heat < 0){
                 heat = 0;
