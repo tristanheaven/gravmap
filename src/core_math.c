@@ -85,6 +85,13 @@ double anomcalc(double surface_cart[3], double Moon[3], double Sun[3]){
 
     anom_m =  (anom_m1 - anom_m2);
     anom_s =  (anom_s1 - anom_s2);
+    
+    if(anom_m < 0 ){
+        anom_m = -anom_m;
+    }
+    if(anom_s < 0){
+        anom_s = -anom_s;
+    }
 
     anom_net = anom_m + anom_s;
 
