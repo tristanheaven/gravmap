@@ -70,8 +70,6 @@ double anomcalc(double surface_cart[3], double Moon[3], double Sun[3]){
     double  surface_polar[2];
     int row;
 
-
-
     for(row = 0; row < 3; row = row +1){
         Moon_dist[row] = surface_cart[row] + Moon[row];
         Sun_dist[row] = surface_cart[row] + Sun[row];
@@ -82,16 +80,8 @@ double anomcalc(double surface_cart[3], double Moon[3], double Sun[3]){
     anom_s1 = ((G * Sun_mass)/(modu(Sun)*modu(Sun)));
     anom_s2 = ((G * Sun_mass)/((modu(Sun_dist))*(modu(Sun_dist))));
 
-
-    anom_m =  (anom_m1 - anom_m2);
-    anom_s =  (anom_s1 - anom_s2);
-    
-    if(anom_m < 0 ){
-        anom_m = -anom_m;
-    }
-    if(anom_s < 0){
-        anom_s = -anom_s;
-    }
+    anom_m = fabs(anom_m1 - anom_m2);
+    anom_s = fabs(anom_s1 - anom_s2);
 
     anom_net = anom_m + anom_s;
 
