@@ -106,7 +106,7 @@ void polar_to_cart(double surface_polar[2], double surface_cart[3]){
 }
 
 
-void colour(struct rgb img_data[256][256], int x, int y, int z, double jdate){
+void colour(struct rgb img_data[256][256], int x, int y, int z, double jdate, double t_time){
     double heat, anom, surface_cart[3], Moon[3];
     double Sun[3], surface_polar[2], obliq, rowd, cold;
     int row, col, n;
@@ -126,8 +126,8 @@ void colour(struct rgb img_data[256][256], int x, int y, int z, double jdate){
             rowd = row;
             cold = col;
 
-            // Testing swap to fix projection error
-            surface_polar[0] = 0.017453 * (((x + cold/256) / n) * 360.0 - 180.0);
+
+            surface_polar[0] = 0.017453 * (((x + cold/256) / n) * 360.0 - 180.0) + (t_time/day_length)*360;
             surface_polar[1] = atan(sinh(M_PI * (1 - 2 * (y + rowd/256) / n)));
 
             polar_to_cart(surface_polar, surface_cart);
