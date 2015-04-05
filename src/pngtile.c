@@ -18,8 +18,10 @@ static double unixtojd(const int t)
 
 int main(int argc, char *argv[])
 {
+
+    // t_time is seconds added to unix time by time picker
 	if (argc != 5) {
-		printf("usage: gravmap z x y t\n");
+		printf("usage: gravmap z x y t t_time\n");
 		return EXIT_FAILURE;
 	}
 
@@ -27,6 +29,7 @@ int main(int argc, char *argv[])
 	const int x = atoi(argv[2]);
 	const int y = atoi(argv[3]);
 	const int t = atoi(argv[4]);
+	const int t_time = atoi(argv[5]);
 
 	png_image img;
 	memset(&img, '\0', sizeof(img));
@@ -42,7 +45,7 @@ int main(int argc, char *argv[])
 	struct rgb img_data[IMG_W][IMG_H];
 	memset(&img_data, '\0', sizeof(img_data));
 
-	colour(img_data, x, y, z, unixtojd(t));
+	colour(img_data, x, y, z, unixtojd(t), t_time);
 
 	png_image_write_to_stdio(&img, stdout, 0, &img_data, 0, NULL);
 	png_image_free(&img);

@@ -1,6 +1,7 @@
 
 #ifndef GRAVITY_MAP__CORE_MATH_H
 #define GRAVITY_MAP__CORE_MATH_H
+#define day_length 86400
 #include <stdint.h>
 struct rgb{
     uint8_t r, g, b;
