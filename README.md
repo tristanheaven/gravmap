@@ -1,8 +1,12 @@
-gravmap
-=======
+### gravmap: gravity map generator
+
+This project was developed for the
+[2014 SpaceApps Challenge](https://2014.spaceappschallenge.org/project/lunar-force-mapping/).
+
+Try our [demo](http://gravmap.atolm.net/).
 
 Acknowledgements to David Eagle for his Low-precision Ephemeris equations for the Sun and Moon with his code under the BSD license:
-
+```
 Copyright (c) 2012, David Eagle
 All rights reserved.
 
@@ -27,3 +31,4 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
 CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
+```
