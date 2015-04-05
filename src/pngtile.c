@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <math.h>
 #include <png.h>
+#include <time.h>
 
 #include "astro_math.h"
 #include "core_math.h"
@@ -18,18 +19,20 @@ static double unixtojd(const int t)
 
 int main(int argc, char *argv[])
 {
-
-    // t_time is seconds added to unix time by time picker
 	if (argc != 5) {
-		printf("usage: gravmap z x y t t_time\n");
+		puts("usage: gravmap z x y t");
+		puts("z: map zoom level");
+		puts("x: x tile position");
+		puts("y: y tile position");
+		puts("t: time in seconds from 1970");
+
 		return EXIT_FAILURE;
 	}
 
-	const int z = atoi(argv[1]);
-	const int x = atoi(argv[2]);
-	const int y = atoi(argv[3]);
-	const int t = atoi(argv[4]);
-	const int t_time = atoi(argv[5]);
+	const uint8_t z = atoi(argv[1]);
+	const uint8_t x = atoi(argv[2]);
+	const uint8_t y = atoi(argv[3]);
+	const time_t t = atoi(argv[4]);
 
 	png_image img;
 	memset(&img, '\0', sizeof(img));
@@ -45,7 +48,7 @@ int main(int argc, char *argv[])
 	struct rgb img_data[IMG_W][IMG_H];
 	memset(&img_data, '\0', sizeof(img_data));
 
-	colour(img_data, x, y, z, unixtojd(t), t_time);
+	colour(img_data, x, y, z, unixtojd(t), t % DAY_IN_SECONDS);
 
 	png_image_write_to_stdio(&img, stdout, 0, &img_data, 0, NULL);
 	png_image_free(&img);

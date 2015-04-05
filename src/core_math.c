@@ -127,7 +127,7 @@ void colour(struct rgb img_data[256][256], int x, int y, int z, double jdate, do
             cold = col;
 
 
-            surface_polar[0] = 0.017453 * (((x + cold/256) / n) * 360.0 - 180.0) + (t_time/day_length)*360;
+            surface_polar[0] = 0.017453 * (((x + cold/256) / n) * 360.0 - 180.0) + (t_time/DAY_IN_SECONDS)*360;
             surface_polar[1] = atan(sinh(M_PI * (1 - 2 * (y + rowd/256) / n)));
 
             polar_to_cart(surface_polar, surface_cart);
@@ -147,16 +147,6 @@ void colour(struct rgb img_data[256][256], int x, int y, int z, double jdate, do
         }
     }
 }
-
-
-double gregorian_calendar_to_jd(int h, int d, int m, int y){
-    double jdate, dd, hd, dadj;
-    y+=8000;
-    if(m<3) { y--; m+=12; }
-    hd = h;
-    return (y*365) +(y/4) -(y/100) +(y/400) -1200820 +(m*153+3)/5-92 +d-1 + (hd-12)/24;
-}
-
 
 void hue_assign(struct rgb img_data[256][256], double heat, int row, int col){
     if(heat <= 0.2){
