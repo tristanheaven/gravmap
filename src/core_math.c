@@ -127,7 +127,7 @@ void colour(struct rgb img_data[256][256], int x, int y, int z, double jdate, do
             cold = col;
 
 
-            surface_polar[0] = 0.017453 * (((x + cold/256) / n) * 360.0 - 180.0) + (t_time/DAY_IN_SECONDS)*360;
+            surface_polar[0] = 0.017453 * (((x + cold/256) / n) * 360.0 - 180.0) + (t_time/DAY_IN_SECONDS)*180;
             surface_polar[1] = atan(sinh(M_PI * (1 - 2 * (y + rowd/256) / n)));
 
             polar_to_cart(surface_polar, surface_cart);
