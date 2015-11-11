@@ -38,16 +38,16 @@
 				display: none;
 			}
 		</style>
-		<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/dark-hive/jquery-ui.min.css">
-		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/dark-hive/jquery-ui.min.css">
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
-		<script src="//cdn.jsdelivr.net/jquery.ui.timepicker.addon/1.4.5/jquery-ui-sliderAccess.js"></script>
-		<link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.ui.timepicker.addon/1.4.5/jquery-ui-timepicker-addon.min.css">
-		<script src="//cdn.jsdelivr.net/jquery.ui.timepicker.addon/1.4.5/jquery-ui-timepicker-addon.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/jquery.ui.timepicker.addon/1.4.5/jquery-ui-sliderAccess.js"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.ui.timepicker.addon/1.4.5/jquery-ui-timepicker-addon.min.css">
+		<script src="https://cdn.jsdelivr.net/jquery.ui.timepicker.addon/1.4.5/jquery-ui-timepicker-addon.min.js"></script>
 
-		<script src="http://openlayers.org/api/OpenLayers.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.13.1/OpenLayers.js"></script>
 	</head>
 	<body>
 		<div id="map"></div>
@@ -68,7 +68,7 @@
 
 					var t = d + h + m;
 
-					layer.url = "/tiles/z${z}-x${x}-y${y}-t" + t + ".png";
+					layer.url = "tiles/z${z}-x${x}-y${y}-t" + t + ".png";
 				}
 
 				function getUTC() {
@@ -87,7 +87,8 @@
 					]
 				});
 
-				layer = new OpenLayers.Layer.OSM("World Map", "", {}, { isBaseLayer: true });
+				layer = new OpenLayers.Layer.OSM("World Map",
+					"https://a.tile.openstreetmap.org/${z}/${x}/${y}.png", {}, { isBaseLayer: true });
 				map.addLayer(layer);
 
 				map.zoomIn();
