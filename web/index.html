@@ -68,7 +68,8 @@
 
 					var t = d + h + m;
 
-					layer.url = "tiles/z${z}-x${x}-y${y}-t" + t + ".png";
+					//layer.url = "tiles/z${z}-x${x}-y${y}-t" + t + ".png";
+					layer.url = "tile.php?z=${z}&x=${x}&y=${y}&t=" + t;
 				}
 
 				function getUTC() {

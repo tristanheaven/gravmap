@@ -1,1 +1,7 @@
 src/gravmap
+src/gravmap.js
+src/gravmap.wasm
+
+cloudflare-worker/dist/
+cloudflare-worker/node_modules/
+cloudflare-worker/worker/
