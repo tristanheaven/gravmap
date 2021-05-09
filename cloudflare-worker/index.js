@@ -3,7 +3,7 @@ import emscripten from '../src/gravmap.js';
 const emscripten_module = new Promise((resolve, reject) => {
 	emscripten({
 		instantiateWasm(info, receive) {
-			const instance = new WebAssembly.Instance(wasm, info);
+			const instance = new WebAssembly.Instance(WASM_MODULE, info);
 			receive(instance);
 			return instance.exports;
 		},
