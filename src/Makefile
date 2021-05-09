@@ -14,7 +14,7 @@ else
 endif
 
 EMCC = emcc
-EMCFLAGS = -O1 --pre-js pre.js \
+EMCFLAGS = -O3 --pre-js pre.js \
 	-s ALLOW_MEMORY_GROWTH=1 \
 	-s DYNAMIC_EXECUTION=0 \
 	-s ENVIRONMENT=web \
